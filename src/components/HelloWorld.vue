@@ -13,7 +13,7 @@
   const choice = ref(0)
   const data = {"num":choice.value}
   const tableData = ref([])
-
+  
   const handleChange = (name: string) => {
     console.log(name,typeof(name))  
     choice.value = Number(name)
@@ -24,7 +24,7 @@
   ) => {
     imageUrl.value = URL.createObjectURL(uploadFile.raw!)
     seg_url.value = 'data:image/jpeg;base64,' + response.image_base64;
-    // eval = response.eval
+    tableData.value = response.eval
     loading.value = false
   }
   const handleError: UploadProps['onSuccess'] = (error) => {
@@ -66,8 +66,8 @@
        element-loading-background="rgba(122, 122, 122, 0.8)"></div>
       <div v-else class="img_placeholder"></div>
     </div>
-    <el-table :data="tableData" style="margin-top:24px; width:100%">
-      <el-table-column type="index" :index="indexMethod" />
+    <el-table :data="tableData" class="eval_table">
+      <el-table-column type="index" :index="indexMethod" width="60"/>
       <el-table-column prop="impervious_surface" label="Impervious_surface" />
       <el-table-column prop="building" label="building"  />
       <el-table-column prop="low_vegetation" label="low_vegetation"  />
@@ -123,7 +123,10 @@
     margin-left: 3%;
     margin-right: 3%;
   }
-
+  .eval_table{
+    margin-top:30px;
+    width:100%
+  }
 </style>
 <style>
   .avatar-uploader .ep-upload {
@@ -135,7 +138,7 @@
   }
 
   .demo-tabs > .ep-tabs__content {
-    padding: 24px;
+    padding: 20px;
     color: #6b778c;
     font-size: 32px;
     font-weight: 600;
